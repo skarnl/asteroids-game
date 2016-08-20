@@ -11,7 +11,8 @@ GameObject:
   - 212: {fileID: 21231242}
   - 50: {fileID: 5027382}
   - 58: {fileID: 5835302}
-  - 114: {fileID: 11441900}
+  - 114: {fileID: 11429798}
+  - 114: {fileID: 11410524}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.42, y: 0.03, z: 0}
+  m_LocalPosition: {x: -2.64, y: -0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -63,7 +64,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.15
---- !u!114 &11441900
+--- !u!114 &11410524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55b2e218d5616744b2cd2da33e2db35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 1.2
+--- !u!114 &11429798
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -75,7 +88,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  rotationSpeed: 5
 --- !u!212 &21231242
 SpriteRenderer:
   m_ObjectHideFlags: 1
