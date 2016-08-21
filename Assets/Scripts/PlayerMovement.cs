@@ -5,10 +5,10 @@ public class PlayerMovement : MonoBehaviour {
 
 	Rigidbody2D rb;
 
-	[Range(0, 30)]
-	public float speed = 5;
+	[Range(0, 5)]
+	public float speed = 2.5f;
 
-	[Range(0, 20)]
+	[Range(0, 7)]
 	public float rotationSpeed = 5;
 
 	void Awake() {
