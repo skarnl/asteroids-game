@@ -7,6 +7,11 @@ public class DebugBorder : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
+		DrawDebugLines();	
+	}
+
+	// Draw the outlines of the viewport
+	void DrawDebugLines() {
 		var dist = (player.transform.position - Camera.main.transform.position).z;
 
 		var leftTop = Camera.main.ViewportToWorldPoint(
@@ -28,6 +33,6 @@ public class DebugBorder : MonoBehaviour {
 		Debug.DrawLine(leftTop, rightTop, Color.green);
 		Debug.DrawLine(rightTop, rightBottom, Color.green);
 		Debug.DrawLine(rightBottom, leftBottom, Color.green);
-		Debug.DrawLine(leftBottom, leftTop, Color.green);		
+		Debug.DrawLine(leftBottom, leftTop, Color.green);	
 	}
 }
