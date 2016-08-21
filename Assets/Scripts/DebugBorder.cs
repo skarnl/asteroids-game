@@ -3,14 +3,11 @@ using System.Collections;
 
 public class DebugBorder : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
+	public GameObject player;
+
 	// Update is called once per frame
-	void Update () {
-		var dist = (transform.position - Camera.main.transform.position).z;
+	void FixedUpdate () {
+		var dist = (player.transform.position - Camera.main.transform.position).z;
 
 		var leftBorder = Camera.main.ViewportToWorldPoint(
 		new Vector3(0, 0, dist)
@@ -28,11 +25,6 @@ public class DebugBorder : MonoBehaviour {
 		new Vector3(0, 1, dist)
 		).y;
 
-		transform.position = new Vector3(
-		Mathf.Clamp(transform.position.x, leftBorder, rightBorder),
-		Mathf.Clamp(transform.position.y, topBorder, bottomBorder),
-		transform.position.z
-		);
-
+		Debug.Log(leftBorder);
 	}
 }
