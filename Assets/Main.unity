@@ -128,7 +128,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 57df5e80e6b8a3747982290109a3ddb7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9725491, g: 0.9725491, b: 0.9725491, a: 0.44}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!4 &652527000
@@ -254,6 +254,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1614065310}
   - 114: {fileID: 1614065311}
+  - 114: {fileID: 1614065312}
   m_Layer: 0
   m_Name: ScriptsContainer
   m_TagString: Untagged
@@ -286,6 +287,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAsteroids: 100
+--- !u!114 &1614065312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1614065309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13e7f9d55c10614ea7dea3c93be83f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1905212193}
 --- !u!1001 &1615138920
 Prefab:
   m_ObjectHideFlags: 0
@@ -323,7 +336,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 444376, guid: 166f01d231474e4449082194c3b33f36, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 166f01d231474e4449082194c3b33f36, type: 2}
@@ -366,10 +379,6 @@ Prefab:
     - target: {fileID: 411590, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11414836, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}
-      propertyPath: speed
-      value: 2.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}
@@ -436,6 +445,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!1 &1905212193 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 187046, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}
+  m_PrefabInternal: {fileID: 1713126451}
 --- !u!4 &1905212195 stripped
 Transform:
   m_PrefabParentObject: {fileID: 411590, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}

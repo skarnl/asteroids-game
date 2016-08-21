@@ -9,22 +9,25 @@ public class DebugBorder : MonoBehaviour {
 	void FixedUpdate () {
 		var dist = (player.transform.position - Camera.main.transform.position).z;
 
-		var leftBorder = Camera.main.ViewportToWorldPoint(
-		new Vector3(0, 0, dist)
-		).x;
-
-		var rightBorder = Camera.main.ViewportToWorldPoint(
-		new Vector3(1, 0, dist)
-		).x;
-
-		var topBorder = Camera.main.ViewportToWorldPoint(
-		new Vector3(0, 0, dist)
-		).y;
-
-		var bottomBorder = Camera.main.ViewportToWorldPoint(
+		var leftTop = Camera.main.ViewportToWorldPoint(
 		new Vector3(0, 1, dist)
-		).y;
+		);
 
-		Debug.Log(leftBorder);
+		var rightTop = Camera.main.ViewportToWorldPoint(
+		new Vector3(1, 1, dist)
+		);
+
+		var leftBottom = Camera.main.ViewportToWorldPoint(
+		new Vector3(0, 0, dist)
+		);
+
+		var rightBottom = Camera.main.ViewportToWorldPoint(
+		new Vector3(1, 0, dist)
+		);
+
+		Debug.DrawLine(leftTop, rightTop, Color.green);
+		Debug.DrawLine(rightTop, rightBottom, Color.green);
+		Debug.DrawLine(rightBottom, leftBottom, Color.green);
+		Debug.DrawLine(leftBottom, leftTop, Color.green);		
 	}
 }
