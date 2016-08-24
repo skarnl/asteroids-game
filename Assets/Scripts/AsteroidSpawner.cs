@@ -121,5 +121,36 @@ public class AsteroidSpawner : MonoBehaviour {
 				playerPosition = player.transform.position;
 			}
 		}
+
+		CleanUp();
 	}
+
+    private void CleanUp()
+    {
+		GameObject asteroid;
+
+		List<GameObject> toBeRemoved = new List<GameObject>();
+
+        for (int i = 0; i < asteroids.Count; i++)
+		{
+			asteroid = asteroids[i];
+			Vector3 asteroidPosition = asteroid.transform.position;
+
+			if (   asteroidPosition.x < leftTop.x - 3f
+				|| asteroidPosition.x > rightTop.x + 3f
+				|| asteroidPosition.y > leftTop.y + 3f
+				|| asteroidPosition.y < leftBottom.y - 3f )
+				{
+					toBeRemoved.Add(asteroid);
+				}
+		}
+
+		foreach (GameObject item in toBeRemoved)
+		{
+			asteroids.Remove(item);
+			Destroy(item);
+		}
+
+		toBeRemoved.Clear();		
+    }
 }
