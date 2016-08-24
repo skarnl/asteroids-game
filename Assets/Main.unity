@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86af7ef84c2bc254eb4dce941ce447a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startAsteroids: 18
+  startAsteroids: 6
   maxAsteroids: 100
   asteroidPrefab: {fileID: 146676, guid: 166f01d231474e4449082194c3b33f36, type: 2}
   player: {fileID: 1905212193}
