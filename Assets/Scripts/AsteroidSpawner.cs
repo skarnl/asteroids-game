@@ -83,7 +83,17 @@ public class AsteroidSpawner : MonoBehaviour {
 			}
 			
 		} else if (playerRigidBody2D.velocity.y < 0) { //GOING DOWN
-			
+			if (Vector2.Distance(player.transform.position, playerPosition) > 4) {
+
+				DetermineBorders();
+
+				for (int i = 0; i < 10; i++) {
+					GameObject asteroid = Instantiate(asteroidPrefab, new Vector3(UnityEngine.Random.Range(leftTop.x - 1.5f, rightTop.x + 1.5f), leftBottom.y - UnityEngine.Random.Range(0, 4), leftTop.z), Quaternion.identity) as GameObject;
+					asteroids.Add(asteroid);
+				}
+
+				playerPosition = player.transform.position;
+			}
 		}
 
 		if (playerRigidBody2D.velocity.x > 0) { //GOING RIGHT 
