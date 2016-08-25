@@ -286,10 +286,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86af7ef84c2bc254eb4dce941ce447a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startAsteroids: 6
-  maxAsteroids: 30
   asteroidPrefab: {fileID: 146676, guid: 166f01d231474e4449082194c3b33f36, type: 2}
   player: {fileID: 1905212193}
+  travelOffset: 3
+  borderSpawnOffset: 4
+  maxAsteroidsPerSpawn: 10
+  borderOffset: 1.5
+  removeOffset: 3
 --- !u!114 &1614065312
 MonoBehaviour:
   m_ObjectHideFlags: 0

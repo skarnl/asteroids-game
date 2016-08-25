@@ -5,8 +5,6 @@ using System;
 
 public class AsteroidSpawner : MonoBehaviour {
 
-	public int startAsteroids = 6;
-	public int maxAsteroids = 100;
 	public GameObject asteroidPrefab;
 	public GameObject player;
 
@@ -16,20 +14,48 @@ public class AsteroidSpawner : MonoBehaviour {
 
 	private Vector3 playerPosition;
 
+	public float travelOffset = 4.0f;
+	public float borderSpawnOffset = 4.0f;
+	public int maxAsteroidsPerSpawn = 10;
+	public float borderOffset = 1.5f;
+	public float removeOffset = 3.0f;
+
+	private bool firstTime = true;
+
 	// Use this for initialization
 	void Start () {
-
-		DetermineBorders();
-
 		asteroids = new List<GameObject>();
 
-		for(int i = 0; i < startAsteroids; i++) {
-			// GameObject asteroid = Instantiate(asteroidPrefab, new Vector3(UnityEngine.Random.Range(leftTop.x, rightTop.x), UnityEngine.Random.Range(leftTop.y, leftBottom.y), leftTop.z), Quaternion.identity) as GameObject;
-			// asteroids.Add(asteroid);			
-		}
+		SpawnInitialAsteroids();
 	}
 
-    private void DetermineBorders()
+    private void SpawnInitialAsteroids()
+    {
+        bool firstTime = true;
+
+		for (int i = 0; i < 2; i++)
+		{
+			RecalculateViewportBorders();
+
+			if (firstTime) {
+				float percentage = 0.5f;
+
+				leftTop = new Vector3(leftTop.x * percentage, leftTop.y * percentage, leftTop.z);
+				rightTop = new Vector3(rightTop.x * percentage, rightTop.y * percentage, rightTop.z);
+				leftBottom = new Vector3(leftBottom.x * percentage, leftBottom.y * percentage, leftBottom.z);
+				rightBottom = new Vector3(rightBottom.x * percentage, rightBottom.y * percentage, rightBottom.z);
+
+				firstTime = false;
+			}
+
+			SpawnAsteroids("up");
+			SpawnAsteroids("down");
+			SpawnAsteroids("left");
+			SpawnAsteroids("right");
+		}
+    }
+
+    private void RecalculateViewportBorders()
     {
         var dist = (player.transform.position - Camera.main.transform.position).z;
 
@@ -52,77 +78,54 @@ public class AsteroidSpawner : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		/**
-
-		determine / ask the player direction
-
-		store the current player position
-
-		if current position > previous position + offst {
-			spawn x asteroids just above/below the viewport
-		}
-
-		check asteroids on the opposing side if they need to be removed
-
-		*/
-
 		Rigidbody2D playerRigidBody2D = player.GetComponent<Rigidbody2D>();
 
-		if (playerRigidBody2D.velocity.y > 0) { //GOING UP
+		if (Vector2.Distance(player.transform.position, playerPosition) > travelOffset) {
 
-			if (Vector2.Distance(player.transform.position, playerPosition) > 4) {
+			RecalculateViewportBorders();
 
-				DetermineBorders();
-
-				for (int i = 0; i < 10; i++) {
-					GameObject asteroid = Instantiate(asteroidPrefab, new Vector3(UnityEngine.Random.Range(leftTop.x - 1.5f, rightTop.x + 1.5f), leftTop.y + UnityEngine.Random.Range(0, 4), leftTop.z), Quaternion.identity) as GameObject;
-					asteroids.Add(asteroid);
-				}
-
-				playerPosition = player.transform.position;
+			if (playerRigidBody2D.velocity.y > 0) { //GOING UP
+				SpawnAsteroids("up");
+			} else if (playerRigidBody2D.velocity.y < 0) { //GOING DOWN
+				SpawnAsteroids("down");
 			}
-			
-		} else if (playerRigidBody2D.velocity.y < 0) { //GOING DOWN
-			if (Vector2.Distance(player.transform.position, playerPosition) > 4) {
 
-				DetermineBorders();
-
-				for (int i = 0; i < 10; i++) {
-					GameObject asteroid = Instantiate(asteroidPrefab, new Vector3(UnityEngine.Random.Range(leftTop.x - 1.5f, rightTop.x + 1.5f), leftBottom.y - UnityEngine.Random.Range(0, 4), leftTop.z), Quaternion.identity) as GameObject;
-					asteroids.Add(asteroid);
-				}
-
-				playerPosition = player.transform.position;
+			if (playerRigidBody2D.velocity.x > 0) { //GOING RIGHT 
+				SpawnAsteroids("right");
+			} else if (playerRigidBody2D.velocity.x < 0) { //GOING LEFT
+				SpawnAsteroids("left");
 			}
-		}
 
-		if (playerRigidBody2D.velocity.x > 0) { //GOING RIGHT 
-			if (Vector2.Distance(player.transform.position, playerPosition) > 4) {
-
-				DetermineBorders();
-
-				for (int i = 0; i < 10; i++) {
-					GameObject asteroid = Instantiate(asteroidPrefab, new Vector3(rightTop.x + UnityEngine.Random.Range(0, 4), UnityEngine.Random.Range(leftTop.y + 1.5f, leftBottom.y - 1.5f), leftTop.z), Quaternion.identity) as GameObject;
-					asteroids.Add(asteroid);
-				}
-
-				playerPosition = player.transform.position;
-			}
-		} else if (playerRigidBody2D.velocity.x < 0) { //GOING LEFT
-			if (Vector2.Distance(player.transform.position, playerPosition) > 4) {
-
-				DetermineBorders();
-
-				for (int i = 0; i < 10; i++) {
-					GameObject asteroid = Instantiate(asteroidPrefab, new Vector3(leftTop.x - UnityEngine.Random.Range(0, 4), UnityEngine.Random.Range(leftTop.y + 1.5f, leftBottom.y - 1.5f), leftTop.z), Quaternion.identity) as GameObject;
-					asteroids.Add(asteroid);
-				}
-
-				playerPosition = player.transform.position;
-			}
+			playerPosition = player.transform.position;
 		}
 
 		CleanUp();
+	}
+
+	private void SpawnAsteroids(string direction)
+	{
+		int maxAsteroids = UnityEngine.Random.Range(0, maxAsteroidsPerSpawn);
+
+		for (int i = 0; i < maxAsteroids; i++) {
+			GameObject asteroid = Instantiate(asteroidPrefab, GetSpawnLocation(direction), Quaternion.identity) as GameObject;
+			asteroids.Add(asteroid);
+		}
+	}
+
+	private Vector3 GetSpawnLocation(string direction) {
+
+		switch(direction){
+			case "right":
+				return new Vector3(rightTop.x + UnityEngine.Random.Range(0, borderSpawnOffset), UnityEngine.Random.Range(leftTop.y + borderOffset, leftBottom.y - borderOffset), leftTop.z);
+			case "left":
+				return new Vector3(leftTop.x - UnityEngine.Random.Range(0, borderSpawnOffset), UnityEngine.Random.Range(leftTop.y + borderOffset, leftBottom.y - borderOffset), leftTop.z);
+			case "up":
+				return new Vector3(UnityEngine.Random.Range(leftTop.x - borderOffset, rightTop.x + borderOffset), leftTop.y + UnityEngine.Random.Range(0, borderSpawnOffset), leftTop.z);
+			case "down":
+				return new Vector3(UnityEngine.Random.Range(leftTop.x - borderOffset, rightTop.x + borderOffset), leftBottom.y - UnityEngine.Random.Range(0, borderSpawnOffset), leftTop.z);
+		}
+
+		return Vector3.zero;
 	}
 
     private void CleanUp()
@@ -136,10 +139,10 @@ public class AsteroidSpawner : MonoBehaviour {
 			asteroid = asteroids[i];
 			Vector3 asteroidPosition = asteroid.transform.position;
 
-			if (   asteroidPosition.x < leftTop.x - 3f
-				|| asteroidPosition.x > rightTop.x + 3f
-				|| asteroidPosition.y > leftTop.y + 3f
-				|| asteroidPosition.y < leftBottom.y - 3f )
+			if (   asteroidPosition.x < leftTop.x - removeOffset
+				|| asteroidPosition.x > rightTop.x + removeOffset
+				|| asteroidPosition.y > leftTop.y + removeOffset
+				|| asteroidPosition.y < leftBottom.y - removeOffset )
 				{
 					toBeRemoved.Add(asteroid);
 				}
