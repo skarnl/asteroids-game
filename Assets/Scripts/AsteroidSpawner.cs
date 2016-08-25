@@ -137,6 +137,12 @@ public class AsteroidSpawner : MonoBehaviour {
         for (int i = 0; i < asteroids.Count; i++)
 		{
 			asteroid = asteroids[i];
+			
+			if (asteroid == null) {
+				asteroids.Remove(asteroid);
+				continue;
+			}
+
 			Vector3 asteroidPosition = asteroid.transform.position;
 
 			if (   asteroidPosition.x < leftTop.x - removeOffset
