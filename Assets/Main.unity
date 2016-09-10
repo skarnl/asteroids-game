@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f8808788154c545838dd8d1566aed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dampTime: 0.3
+  dampTime: 0
   target: {fileID: 1905212199}
 --- !u!1 &1483967049
 GameObject:

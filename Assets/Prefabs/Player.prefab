@@ -13,6 +13,7 @@ GameObject:
   - 58: {fileID: 5887898}
   - 114: {fileID: 11414836}
   - 114: {fileID: 11494494}
+  - 114: {fileID: 11492212}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -77,6 +78,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.3
   rotationSpeed: 3.24
+--- !u!114 &11492212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5da0cedd76aa93489a8e6a473f76fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 0
 --- !u!114 &11494494
 MonoBehaviour:
   m_ObjectHideFlags: 1

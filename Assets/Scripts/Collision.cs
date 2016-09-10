@@ -3,9 +3,18 @@ using System.Collections;
 
 public class Collision : MonoBehaviour {
 
+
 	void OnCollisionEnter2D(Collision2D coll) {
-        if (coll.gameObject.tag == "Asteroid") {
-            Destroy(coll.gameObject);
-		}
+        Health selfHealth = GetComponent<Health>();
+
+        if (selfHealth) {
+            selfHealth.TakeHit();
+        }        
+
+        Health otherHealth = coll.gameObject.GetComponent<Health>();
+
+        if (otherHealth) {
+            otherHealth.TakeHit();
+        }        
     }
 }

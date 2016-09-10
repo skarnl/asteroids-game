@@ -78,6 +78,10 @@ public class AsteroidSpawner : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+		if (player == null) {
+			return;
+		}
+
 		Rigidbody2D playerRigidBody2D = player.GetComponent<Rigidbody2D>();
 
 		if (Vector2.Distance(player.transform.position, playerPosition) > travelOffset) {
