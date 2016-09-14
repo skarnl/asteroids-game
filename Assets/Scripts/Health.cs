@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using Prime31.MessageKit;
 
 public class Health : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class Health : MonoBehaviour {
 		hitPoints -= damage;
 
 		if (hitPoints <= 0) {
+			MessageKit<GameObject>.post(MessageTypes.gameObjectDestroyed, gameObject);
 			Destroy(gameObject);
 		}
 	}
