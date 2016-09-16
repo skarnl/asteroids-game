@@ -196,7 +196,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &1464569727
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,13 +441,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86af7ef84c2bc254eb4dce941ce447a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPrefab: {fileID: 146676, guid: 166f01d231474e4449082194c3b33f36, type: 2}
+  bigAsteroidPrefabs:
+  - {fileID: 110796, guid: 44002b409649d844a8c82b4afe219df1, type: 2}
+  - {fileID: 134926, guid: 7d41557000b7ecb49ae36289e3d5bc1d, type: 2}
+  - {fileID: 124680, guid: 7747b4613ab8d9046bb122b22b6d60b6, type: 2}
+  - {fileID: 166748, guid: 0d778e527d28d55488857af423398e99, type: 2}
+  - {fileID: 146676, guid: 166f01d231474e4449082194c3b33f36, type: 2}
+  - {fileID: 107670, guid: f37d6c861abed814a9671a234cb2ab3e, type: 2}
+  - {fileID: 129744, guid: 83d542189dedbb34a84a50df50990871, type: 2}
+  - {fileID: 136090, guid: 8e41a6d91d119f840a10e5c042cdb593, type: 2}
+  - {fileID: 113040, guid: 92c5f46a331cef748be2a96ac2915dfc, type: 2}
+  - {fileID: 128378, guid: cf8db7ba20343d74b8c968acd123207a, type: 2}
+  - {fileID: 189704, guid: 8d4aac1cdc495384dbc77d0ffa7af41a, type: 2}
+  smallAsteroidPrefabs:
+  - {fileID: 108596, guid: 2eaaf040e21c2d5488b092412189346f, type: 2}
+  - {fileID: 145484, guid: b35d7f906e258804e8212b19137c24b9, type: 2}
+  - {fileID: 162836, guid: 5e6f1381e7feb0c4cb91a5511afb1d29, type: 2}
+  - {fileID: 194228, guid: 233dcbb4d966ea1458473736f68aee05, type: 2}
+  - {fileID: 128910, guid: 4b80890576e9376429e292905181ed89, type: 2}
+  - {fileID: 150326, guid: c1b8c01ba3ae3904f8a7142a75a5d3fa, type: 2}
+  - {fileID: 140574, guid: b01888ec52b81134db841ed871df8b00, type: 2}
+  - {fileID: 144246, guid: 8b28f5fdeb883e94ea28e0be70848257, type: 2}
+  - {fileID: 179436, guid: 9f0da14f6aec80845bed840844903c75, type: 2}
+  - {fileID: 170968, guid: 624df27f031a56a42b9e6393244b011d, type: 2}
+  - {fileID: 133974, guid: a19950cf0c7fd3947a02480ea9299e9d, type: 2}
   player: {fileID: 1905212193}
   travelOffset: 3
   borderSpawnOffset: 4
-  maxAsteroidsPerSpawn: 10
+  maxAsteroidsPerSpawn: 21
   borderOffset: 1.5
   removeOffset: 3
+  bigSmallBalance: 0.2
 --- !u!114 &1614065312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,52 +525,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11492212, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}
       propertyPath: hitPoints
-      value: 10
+      value: 122
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414836, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}
-  m_IsPrefabParent: 0
---- !u!1001 &1750066968
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 444376, guid: 166f01d231474e4449082194c3b33f36, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 1.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 444376, guid: 166f01d231474e4449082194c3b33f36, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 444376, guid: 166f01d231474e4449082194c3b33f36, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444376, guid: 166f01d231474e4449082194c3b33f36, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444376, guid: 166f01d231474e4449082194c3b33f36, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444376, guid: 166f01d231474e4449082194c3b33f36, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444376, guid: 166f01d231474e4449082194c3b33f36, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 444376, guid: 166f01d231474e4449082194c3b33f36, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 166f01d231474e4449082194c3b33f36, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1879392071
 GameObject:

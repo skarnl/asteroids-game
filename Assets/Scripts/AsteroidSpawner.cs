@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using Random = UnityEngine.Random;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
 
 public class AsteroidSpawner : MonoBehaviour {
 
-	public GameObject asteroidPrefab;
+	public GameObject[] bigAsteroidPrefabs;
+	public GameObject[] smallAsteroidPrefabs;
 	public GameObject player;
 
 	private List<GameObject> asteroids;
@@ -19,6 +21,8 @@ public class AsteroidSpawner : MonoBehaviour {
 	public int maxAsteroidsPerSpawn = 10;
 	public float borderOffset = 1.5f;
 	public float removeOffset = 3.0f;
+
+	public float bigSmallBalance = 0.3f;
 
 	private bool firstTime = true;
 
@@ -108,25 +112,42 @@ public class AsteroidSpawner : MonoBehaviour {
 
 	private void SpawnAsteroids(string direction)
 	{
-		int maxAsteroids = UnityEngine.Random.Range(0, maxAsteroidsPerSpawn);
+		int maxAsteroids = Random.Range(0, maxAsteroidsPerSpawn);
 
 		for (int i = 0; i < maxAsteroids; i++) {
+
+			GameObject asteroidPrefab = PickRandomAsset();
+
 			GameObject asteroid = Instantiate(asteroidPrefab, GetSpawnLocation(direction), Quaternion.identity) as GameObject;
+			asteroid.transform.SetParent(gameObject.transform);
 			asteroids.Add(asteroid);
 		}
+	}
+
+	private GameObject PickRandomAsset()
+	{
+		GameObject[] prefabArray;
+
+		if (Random.Range(0f, 1f) > bigSmallBalance) {
+			prefabArray = bigAsteroidPrefabs;
+		} else {
+			prefabArray = smallAsteroidPrefabs;
+		}
+
+		return prefabArray[Random.Range(0, prefabArray.Length - 1)];
 	}
 
 	private Vector3 GetSpawnLocation(string direction) {
 
 		switch(direction){
 			case "right":
-				return new Vector3(rightTop.x + UnityEngine.Random.Range(0, borderSpawnOffset), UnityEngine.Random.Range(leftTop.y + borderOffset, leftBottom.y - borderOffset), leftTop.z);
+				return new Vector3(rightTop.x + Random.Range(0, borderSpawnOffset), Random.Range(leftTop.y + borderOffset, leftBottom.y - borderOffset), leftTop.z);
 			case "left":
-				return new Vector3(leftTop.x - UnityEngine.Random.Range(0, borderSpawnOffset), UnityEngine.Random.Range(leftTop.y + borderOffset, leftBottom.y - borderOffset), leftTop.z);
+				return new Vector3(leftTop.x - Random.Range(0, borderSpawnOffset), Random.Range(leftTop.y + borderOffset, leftBottom.y - borderOffset), leftTop.z);
 			case "up":
-				return new Vector3(UnityEngine.Random.Range(leftTop.x - borderOffset, rightTop.x + borderOffset), leftTop.y + UnityEngine.Random.Range(0, borderSpawnOffset), leftTop.z);
+				return new Vector3(Random.Range(leftTop.x - borderOffset, rightTop.x + borderOffset), leftTop.y + Random.Range(0, borderSpawnOffset), leftTop.z);
 			case "down":
-				return new Vector3(UnityEngine.Random.Range(leftTop.x - borderOffset, rightTop.x + borderOffset), leftBottom.y - UnityEngine.Random.Range(0, borderSpawnOffset), leftTop.z);
+				return new Vector3(Random.Range(leftTop.x - borderOffset, rightTop.x + borderOffset), leftBottom.y - Random.Range(0, borderSpawnOffset), leftTop.z);
 		}
 
 		return Vector3.zero;
