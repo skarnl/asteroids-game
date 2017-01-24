@@ -17,10 +17,24 @@ public class GameManager : Singleton<GameManager> {
         MessageKit<GameObject>.addObserver(MessageTypes.gameObjectDestroyed, GameObjectDestroyedHandler);
     }
 
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape)) {
+            print("// PAUSE //");
+        }
+    }
+
     private void GameObjectDestroyedHandler(GameObject destroyedGameObject)
     {
         if (destroyedGameObject.tag == "Asteroid") {
 			AddPoints(Points.ASTEROID_DESTROYED);
+
+            LootDrop ld = destroyedGameObject.GetComponent<LootDrop>();
+
+            if (ld)
+            {
+                ld.Spawn(destroyedGameObject.transform.position);
+            }
 		}
     }
 

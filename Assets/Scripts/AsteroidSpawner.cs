@@ -24,8 +24,6 @@ public class AsteroidSpawner : MonoBehaviour {
 
 	public float bigSmallBalance = 0.3f;
 
-	private bool firstTime = true;
-
 	// Use this for initialization
 	void Start () {
 		asteroids = new List<GameObject>();
