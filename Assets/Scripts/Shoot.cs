@@ -9,7 +9,7 @@ public class Shoot : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Space)) {
-		    GameObject bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
+		    GameObject bullet = Instantiate(bulletPrefab, gameObject.transform.position + gameObject.transform.up * 0.2f, transform.rotation);
 		}
 	}
 }
