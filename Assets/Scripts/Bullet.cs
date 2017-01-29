@@ -3,15 +3,25 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
-	void OnCollisionEnter2D(Collision2D coll) {
+    private void Awake()
+    {
+        Destroy(gameObject, 3);
+    }
+
+    private void Start()
+    {
+        gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * 100);
+    }
+
+    private void OnCollisionEnter(UnityEngine.Collision other)
+    {
         Health selfHealth = GetComponent<Health>();
-//        Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
         if (selfHealth) {
             selfHealth.TakeHit();
         }        
 
-        Health otherHealth = coll.gameObject.GetComponent<Health>();
+        Health otherHealth = other.gameObject.GetComponent<Health>();
 
         if (otherHealth) {
             otherHealth.TakeHit();
