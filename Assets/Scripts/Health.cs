@@ -5,24 +5,17 @@ using Prime31.MessageKit;
 
 public class Health : MonoBehaviour {
 
-	public float hitPoints;
+	public int hitPoints;
 
-    private void Awake()
+    private void Update()
     {
-//        hitPoints = Math.Round(hitPoints);
-    }
-
-    public void TakeHit(float damage = 1) {
-		hitPoints -= damage;
-
 		if (hitPoints <= 0) {
 			MessageKit<GameObject>.post(MessageTypes.gameObjectDestroyed, gameObject);
 		    Destroy(gameObject);
 		}
-	}
-
-    public void AddHealth(float healthAdded)
-    {
-        hitPoints += healthAdded;
     }
+
+    public void TakeHit(int damage = 1) {
+		hitPoints -= damage;
+	}
 }

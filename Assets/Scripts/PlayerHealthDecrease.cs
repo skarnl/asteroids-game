@@ -1,10 +1,11 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using Managers;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealthDecrease : MonoBehaviour {
 
-    [Range(0, 1000)]
-    public float dropPerFrame = 0f;
+    [Range(0, 50)]
+    public int dropPerFrame = 20;
 
     private Health playersHealth;
 
@@ -15,6 +16,6 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Update()
     {
-        playersHealth.TakeHit(dropPerFrame);
+        HealthManager.Instance.AddHealth(-dropPerFrame);
     }
 }

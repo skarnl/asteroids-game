@@ -3,4 +3,6 @@
 public class MessageTypes
 {
 	public const int gameObjectDestroyed = 0;
+
+    public const int playerHealthChanged = 1;
 }

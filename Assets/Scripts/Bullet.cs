@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour {
 
     private void Start()
     {
-        gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 100);
+        gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * 100);
     }
 
     private void OnCollisionEnter(UnityEngine.Collision other)
