@@ -7,8 +7,10 @@ public class HealthItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        HealthManager.Instance.AddHealth(HealthAdded);
+        if (other.tag == "Player") {
+            HealthManager.Instance.AddHealth(HealthAdded);
 
-        DestroyObject(gameObject);
+            DestroyObject(gameObject);
+        }
     }
 }

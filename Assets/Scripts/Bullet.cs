@@ -10,21 +10,16 @@ public class Bullet : MonoBehaviour {
 
     private void Start()
     {
-        gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * 100);
+        gameObject.GetComponent<Rigidbody2D>().AddRelativeForce(Vector3.up * 100);
     }
 
-    private void OnCollisionEnter(UnityEngine.Collision other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Health selfHealth = GetComponent<Health>();
-
-        if (selfHealth) {
-            selfHealth.TakeHit();
-        }
-
         Health otherHealth = other.gameObject.GetComponent<Health>();
 
         if (otherHealth) {
             otherHealth.TakeHit();
+            Destroy(gameObject);
         }
     }
 }

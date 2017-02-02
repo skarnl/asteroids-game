@@ -10,7 +10,8 @@ namespace Managers {
     public class HealthManager : Singleton<HealthManager> {
         protected HealthManager () {} // guarantee this will be always a singleton only - can't use the constructor!
 
-        private int totalHealth;
+        private const int MAX_PLAYER_HEALTH = 1000;
+        public const int ASTEROID_HIT_DAMAGE = 250;
 
         private RectTransform healthBar;
         private Text whiteHealthText;
@@ -26,13 +27,13 @@ namespace Managers {
             whiteHealthText = GameObject.Find("WhiteText").GetComponent<Text>();
             blackHealthText = GameObject.Find("BlackText").GetComponent<Text>();
 
-            totalHealth = playerHealth.hitPoints;
+            playerHealth.hitPoints = MAX_PLAYER_HEALTH;
             originalWidth = healthBar.rect.width;
         }
 
         public void AddHealth(int addedHealth)
         {
-            playerHealth.hitPoints = Math.Min(totalHealth, playerHealth.hitPoints + addedHealth);
+            playerHealth.hitPoints = Math.Min(MAX_PLAYER_HEALTH, playerHealth.hitPoints + addedHealth);
         }
 
         public void SubstractHealth(int substractHealth)
@@ -41,12 +42,12 @@ namespace Managers {
         }
 
         public void UpdateHealth(int health) {
-            playerHealth.hitPoints = Math.Min(0, Math.Max(totalHealth, health));
+            playerHealth.hitPoints = Math.Min(0, Math.Max(MAX_PLAYER_HEALTH, health));
         }
 
         private void LateUpdate()
         {
-            float percentage = (float)playerHealth.hitPoints / (float)totalHealth;
+            float percentage = (float)playerHealth.hitPoints / (float)MAX_PLAYER_HEALTH;
 
             healthBar.sizeDelta = new Vector2(originalWidth * percentage, healthBar.rect.height);
 
