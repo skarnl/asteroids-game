@@ -51,7 +51,7 @@ namespace Managers {
 
             healthBar.sizeDelta = new Vector2(originalWidth * percentage, healthBar.rect.height);
 
-            whiteHealthText.text = blackHealthText.text = Math.Floor(percentage * 100) + "%";
+            whiteHealthText.text = blackHealthText.text = String.Format("{0}/{1}", playerHealth.hitPoints, MAX_PLAYER_HEALTH);
         }
     }
 

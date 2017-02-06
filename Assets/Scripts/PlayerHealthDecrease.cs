@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using Managers;
 
@@ -9,13 +10,33 @@ public class PlayerHealthDecrease : MonoBehaviour {
 
     private Health playersHealth;
 
+    private int frame = 0;
+    public int waitDelayInFrames = 100;
+
     private void Awake()
     {
         playersHealth = gameObject.GetComponent<Health>();
     }
 
-    private void Update()
+    private void Start()
     {
+        StartCoroutine(StartHealthDegrees());
+    }
+
+    IEnumerator StartHealthDegrees() {
+        yield return new WaitUntil(() => frame >= waitDelayInFrames);
+
         HealthManager.Instance.AddHealth(-dropPerFrame);
+
+        //reset the frame and restart the Coroutine
+        frame = 0;
+        StartCoroutine(StartHealthDegrees());
+    }
+
+    void Update() {
+        if (frame <= waitDelayInFrames)
+        {
+            frame++;
+        }
     }
 }
