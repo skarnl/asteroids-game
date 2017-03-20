@@ -22,27 +22,23 @@ namespace Managers {
 
         public void Awake ()
         {
-            print("=== HealthManager::awake");
-
             playerHealth = GameObject.Find("Player").GetComponent<Health>();
-
-            print("xyz player health = " + playerHealth.hitPoints);
 
             healthBar = GameObject.Find("PlayerHealthBar").GetComponent<RectTransform>();
             whiteHealthText = GameObject.Find("WhiteText").GetComponent<Text>();
             blackHealthText = GameObject.Find("BlackText").GetComponent<Text>();
 
-            startHealth = playerHealth.hitPoints;
+            startHealth = playerHealth.Hitpoints;
             originalWidth = healthBar.rect.width;
         }
 
         private void LateUpdate()
         {
-            float percentage = (float)playerHealth.hitPoints / (float)startHealth;
+            float percentage = (float)playerHealth.Hitpoints / (float)startHealth;
 
             healthBar.sizeDelta = new Vector2(originalWidth * percentage, healthBar.rect.height);
 
-            whiteHealthText.text = blackHealthText.text = String.Format("{0}/{1}", playerHealth.hitPoints, startHealth);
+            whiteHealthText.text = blackHealthText.text = String.Format("{0}/{1}", playerHealth.Hitpoints, startHealth);
         }
     }
 

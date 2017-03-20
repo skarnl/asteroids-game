@@ -26,10 +26,8 @@ public class PlayerHealthDecrease : MonoBehaviour {
     IEnumerator StartHealthDegrees() {
         yield return new WaitUntil(() => frame >= waitDelayInFrames);
 
-        print("Playerhealth = " + playersHealth.hitPoints);
-
-        if (playersHealth.hitPoints > 0) {
-            playersHealth.hitPoints = playersHealth.hitPoints - dropPerFrame;
+        if (playersHealth.Hitpoints > 0) {
+            playersHealth.Hitpoints = playersHealth.Hitpoints - dropPerFrame;
         }
 
         //reset the frame and restart the Coroutine

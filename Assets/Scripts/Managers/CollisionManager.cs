@@ -37,7 +37,7 @@ namespace Managers {
                     gameObject.GetComponent<Health>().TakeHit(ASTEROID_HIT_DAMAGE);
                     other.GetComponent<Health>().TakeHit();
                 } else if(other.CompareTag("HealthPickup")) { // player picks up health item
-                    gameObject.GetComponent<Health>().hitPoints += PLAYER_HEALTH_INCREASE;
+                    gameObject.GetComponent<Health>().Heal(PLAYER_HEALTH_INCREASE);
                     Destroy(other.gameObject);
                 }
             } else if (gameObject.CompareTag("Bullet")) {
