@@ -26,7 +26,8 @@ namespace Managers {
         player - asteroid
 
 */
-        public const int ASTEROID_HIT_DAMAGE = 250;
+        public const int ASTEROID_HIT_DAMAGE = 100;
+        public const int ENEMY_HIT_DAMAGE = 200;
         public const int PLAYER_HEALTH_INCREASE = 66;
 
         public void HandleCollision(GameObject gameObject, Collider2D other)
@@ -36,16 +37,18 @@ namespace Managers {
                     // player bumps into the asteroid
                     gameObject.GetComponent<Health>().TakeHit(ASTEROID_HIT_DAMAGE);
                     other.GetComponent<Health>().TakeHit();
+                } else if (other.CompareTag("Enemy")) {
+                    // player bumps into the enemy
+                    gameObject.GetComponent<Health>().TakeHit(ENEMY_HIT_DAMAGE);
+                    other.GetComponent<Health>().TakeHit();
                 } else if(other.CompareTag("HealthPickup")) { // player picks up health item
                     gameObject.GetComponent<Health>().Heal(PLAYER_HEALTH_INCREASE);
                     Destroy(other.gameObject);
                 }
             } else if (gameObject.CompareTag("Bullet")) {
-                if (other.CompareTag("Asteroid")) {
+                if (other.CompareTag("Asteroid") || other.CompareTag("Enemy")) {
                     other.GetComponent<Health>().TakeHit();
                     Destroy(gameObject);
-
-//                    case other.CompareTag("")
                 }
             }
         }
