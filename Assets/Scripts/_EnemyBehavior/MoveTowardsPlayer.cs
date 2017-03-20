@@ -1,12 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveTowardsPlayer : MonoBehaviour {
 
     private GameObject player;
-    private Vector3 velocity = Vector3.zero;
-    public float dampTime = 5f;
+    public float speed = 5f;
 
 	// Use this for initialization
 	void Start ()
@@ -16,8 +16,7 @@ public class MoveTowardsPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    Vector3 delta = player.transform.position - gameObject.transform.position;
-	    Vector3 destination = transform.position + delta;
-	    transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
+	    float step = speed * Time.deltaTime;
+	    transform.position = Vector3.MoveTowards(gameObject.transform.position, player.transform.position, step);
 	}
 }
