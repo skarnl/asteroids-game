@@ -6,9 +6,8 @@ public class LootDrop : MonoBehaviour
 
     public void Spawn(Vector3 location)
     {
-        GameObject LootPrefab = LootPrefabs[Random.Range(0, LootPrefabs.Length - 1)];
+        GameObject RandomLootPrefab = LootPrefabs[Random.Range(0, LootPrefabs.Length - 1)];
 
-        GameObject Loot = Instantiate(LootPrefab, location, Quaternion.identity) as GameObject;
-//        Loot.transform.SetParent(gameObject.transform);
+        GameObject Loot = Instantiate(RandomLootPrefab, location, Quaternion.identity) as GameObject;
     }
 }

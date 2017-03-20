@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 212156901144581574}
   - component: {fileID: 61231094206881238}
   - component: {fileID: 95465879765261878}
-  - component: {fileID: 114042590214128806}
   - component: {fileID: 114467813951675904}
   - component: {fileID: 114741340044940254}
   m_Layer: 0
@@ -81,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5da0cedd76aa93489a8e6a473f76fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 1
+  hitPoints: 1000
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -124,17 +123,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114042590214128806
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 187046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c1269c617d405f4eb92b1913af3d559, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114467813951675904
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,7 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0822ba1b74070494f9c53f0d9f99d664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropPerFrame: 0
+  dropPerFrame: 1
+  waitDelayInFrames: 20
 --- !u!114 &114741340044940254
 MonoBehaviour:
   m_ObjectHideFlags: 1

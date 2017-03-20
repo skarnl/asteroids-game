@@ -6,6 +6,11 @@ using Prime31.MessageKit;
 
 namespace Managers {
 
+    /**
+    *
+    * This class handles all the global game related shizzle (showing modals etc)
+    *
+    */
     public class GameManager : Singleton<GameManager> {
         protected GameManager () {} // guarantee this will be always a singleton only - can't use the constructor!
 
@@ -26,6 +31,8 @@ namespace Managers {
             }
         }
 
+        // TODO: move to ScoreController - weird place for this behavior - should be somewhere in a ScoreController or something like that
+        // this class should only handle the global game related shizzle
         private void GameObjectDestroyedHandler(GameObject destroyedGameObject)
         {
             if (destroyedGameObject.tag == "Asteroid") {
