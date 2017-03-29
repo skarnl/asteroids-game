@@ -984,16 +984,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114467813951675904, guid: 9b5d04eced7277541a5bfbfb54cdfd1b,
-        type: 2}
-      propertyPath: dropPerFrame
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114467813951675904, guid: 9b5d04eced7277541a5bfbfb54cdfd1b,
-        type: 2}
-      propertyPath: waitDelayInFrames
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}
   m_IsPrefabParent: 0
@@ -1001,17 +991,6 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 187046, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}
   m_PrefabInternal: {fileID: 1891324987}
---- !u!114 &1905212196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1905212193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbd5f173c0364fa429c9c213a943e1f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1905212199 stripped
 Transform:
   m_PrefabParentObject: {fileID: 411590, guid: 9b5d04eced7277541a5bfbfb54cdfd1b, type: 2}
