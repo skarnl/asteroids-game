@@ -12,6 +12,8 @@ public class MoveTowardsPlayer : MonoBehaviour {
 
     public float RotationSpeed = 200f;
 
+    public float distance = 1.2f;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -25,6 +27,17 @@ public class MoveTowardsPlayer : MonoBehaviour {
 	        float step = speed * Time.deltaTime;
 	        transform.position = Vector3.MoveTowards(transform.position, goal, step);
 
+	        //find the vector pointing from our position to the target
+	        Vector3 _direction = (goal - transform.position);
+
+	        //create the rotation we need to be in to look at the target
+	        Quaternion _lookRotation = Quaternion.LookRotation(_direction, Vector3.back);
+	        _lookRotation.x = 0;
+	        _lookRotation.y = 0;
+
+	        //rotate us over time according to speed until we are in the required rotation
+	        transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * 100f);
+
 	        if (Vector2.Distance(transform.position, goal) < float.Epsilon) {
 	            goal = Vector3.zero;
 	        }
@@ -36,20 +49,21 @@ public class MoveTowardsPlayer : MonoBehaviour {
 
     void FixedUpdate()
     {
-        float distance = 1.2f;
+        Debug.DrawLine(transform.position, new Vector3(transform.position.x - distance, transform.position.y + distance, 0), Color.red);
+        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + distance), Color.green);
+        Debug.DrawLine(transform.position, new Vector3(transform.position.x + distance, transform.position.y + distance), Color.red);
 
-        Debug.DrawRay(transform.position, transform.up * distance, Color.yellow);
+        print("distance = " + Vector3.Distance(player.transform.position, transform.position));
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, distance, 1 << LayerMask.NameToLayer("Player"));
+        if (Vector3.Distance(player.transform.position, transform.position) <= distance) {
+            var playerDirection = player.transform.position - transform.position;
 
-        if (hit.collider != null) {
+            float angle = Vector3.Angle(playerDirection, transform.up);
 
-            print(hit.collider);
-            print(hit.collider.IsTouchingLayers(LayerMask.NameToLayer("Player")));
-
-            goal = hit.point;
-
-            print("HIT!");
+            if (angle < 45f) {
+                goal = player.transform.position;
+            }
         }
+
     }
 }
