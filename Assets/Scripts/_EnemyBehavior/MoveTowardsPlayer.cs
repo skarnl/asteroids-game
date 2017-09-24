@@ -22,8 +22,11 @@ public class MoveTowardsPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 	    if (goal != Vector3.zero) { // move towards last known position
+		    
+		    Debug.DrawLine(transform.position, goal, Color.cyan);
+		    
 	        float step = speed * Time.deltaTime;
 	        transform.position = Vector3.MoveTowards(transform.position, goal, step);
 
@@ -49,16 +52,18 @@ public class MoveTowardsPlayer : MonoBehaviour {
 
     void FixedUpdate()
     {
-        Debug.DrawLine(transform.position, new Vector3(transform.position.x - distance, transform.position.y + distance, 0), Color.red);
-        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + distance), Color.green);
-        Debug.DrawLine(transform.position, new Vector3(transform.position.x + distance, transform.position.y + distance), Color.red);
+	    Debug.DrawLine(transform.position, transform.position + (transform.up * distance), Color.magenta);
 
-        print("distance = " + Vector3.Distance(player.transform.position, transform.position));
-
+	    var rotatedLine = Quaternion.Euler(0, 0, 45) * transform.up * distance;
+	    Debug.DrawLine(transform.position, transform.position + rotatedLine, Color.yellow);
+	    
+	    var rotatedLine2 = Quaternion.Euler(0, 0, -45) * transform.up * distance;
+	    Debug.DrawLine(transform.position, transform.position + rotatedLine2, Color.yellow);
+	    
         if (Vector3.Distance(player.transform.position, transform.position) <= distance) {
             var playerDirection = player.transform.position - transform.position;
 
-            float angle = Vector3.Angle(playerDirection, transform.up);
+            var angle = Vector3.Angle(playerDirection, transform.up);
 
             if (angle < 45f) {
                 goal = player.transform.position;
