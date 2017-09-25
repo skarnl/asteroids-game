@@ -7,8 +7,8 @@ namespace Managers {
     * This class handles all the collision events, broadcasted by the CollisionReporter class
     */
 
-    public class CollisionManager : Singleton<CollisionManager>
-    {
+    public class CollisionManager : Singleton<CollisionManager> {
+        
         protected CollisionManager () {} // guarantee this will be always a singleton only - can't use the constructor!
 
 
@@ -38,10 +38,12 @@ namespace Managers {
                     // player bumps into the asteroid
                     gameObject.GetComponent<Health>().TakeHit(ASTEROID_HIT_DAMAGE);
                     other.GetComponent<Health>().TakeHit();
+                    SpawnSmoke(gameObject.transform.position);
                 } else if (other.CompareTag("Enemy")) {
                     // player bumps into the enemy
                     gameObject.GetComponent<Health>().TakeHit(ENEMY_HIT_DAMAGE);
                     other.GetComponent<Health>().TakeHit();
+                    SpawnSmoke(gameObject.transform.position);
                 } else if(other.CompareTag("HealthPickup")) { // player picks up health item
                     MessageKit<GameObject>.post(MessageTypes.gameObjectDestroyed, other.gameObject);
                     gameObject.GetComponent<Health>().Heal(PLAYER_HEALTH_INCREASE);
@@ -52,8 +54,15 @@ namespace Managers {
                 if (other.CompareTag("Asteroid") || other.CompareTag("Enemy")) {
                     other.GetComponent<Health>().TakeHit();
                     Destroy(gameObject);
+                    SpawnSmoke(gameObject.transform.position);
                 }
             }
+        }
+
+        private void SpawnSmoke(Vector3 location)
+        {
+            GameObject smokeAnimation = Instantiate(GameManager.Instance.smokePrefab, location, Quaternion.identity) as GameObject;
+            Destroy(smokeAnimation, 3);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Managers {
         protected GameManager () {} // guarantee this will be always a singleton only - can't use the constructor!
 
         public GameObject healthPickupPrefab;
+        public GameObject smokePrefab;
         
         void Awake ()
         {
