@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Prime31.MessageKit;
 
 namespace Managers {
 
@@ -42,8 +43,10 @@ namespace Managers {
                     gameObject.GetComponent<Health>().TakeHit(ENEMY_HIT_DAMAGE);
                     other.GetComponent<Health>().TakeHit();
                 } else if(other.CompareTag("HealthPickup")) { // player picks up health item
+                    MessageKit<GameObject>.post(MessageTypes.gameObjectDestroyed, other.gameObject);
                     gameObject.GetComponent<Health>().Heal(PLAYER_HEALTH_INCREASE);
                     Destroy(other.gameObject);
+                    
                 }
             } else if (gameObject.CompareTag("Bullet")) {
                 if (other.CompareTag("Asteroid") || other.CompareTag("Enemy")) {

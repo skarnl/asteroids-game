@@ -14,6 +14,8 @@ namespace Managers {
     public class GameManager : Singleton<GameManager> {
         protected GameManager () {} // guarantee this will be always a singleton only - can't use the constructor!
 
+        public GameObject healthPickupPrefab;
+        
         void Awake ()
         {
             RegisterForMessages();
@@ -44,6 +46,11 @@ namespace Managers {
                 {
                     ld.Spawn(destroyedGameObject.transform.position);
                 }
+            }
+            
+            if (destroyedGameObject.tag == "HealthPickup") {
+                GameObject healthAnimation = Instantiate(healthPickupPrefab, destroyedGameObject.transform.position, Quaternion.identity) as GameObject;
+                Destroy(healthAnimation, 3);
             }
         }
 
