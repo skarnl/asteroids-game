@@ -14,7 +14,7 @@ namespace Managers {
         protected HealthManager () {} // guarantee this will be always a singleton only - can't use the constructor!
 
         private RectTransform healthBar;
-        private Text whiteHealthText;
+        private Text healthText;
         private Text blackHealthText;
         private Health playerHealth;
         private float originalWidth;
@@ -24,10 +24,9 @@ namespace Managers {
         {
             playerHealth = GameObject.Find("Player").GetComponent<Health>();
 
-            healthBar = GameObject.Find("PlayerHealthBar").GetComponent<RectTransform>();
-            whiteHealthText = GameObject.Find("WhiteText").GetComponent<Text>();
-            blackHealthText = GameObject.Find("BlackText").GetComponent<Text>();
-
+            healthBar = GameObject.Find("UI/PlayerHealthBar").GetComponent<RectTransform>();
+            healthText = GameObject.Find("UI/HealthText").GetComponent<Text>();
+            
             startHealth = playerHealth.Hitpoints;
             originalWidth = healthBar.rect.width;
         }
@@ -38,7 +37,7 @@ namespace Managers {
 
             healthBar.sizeDelta = new Vector2(originalWidth * percentage, healthBar.rect.height);
 
-            whiteHealthText.text = blackHealthText.text = String.Format("{0}/{1}", playerHealth.Hitpoints, startHealth);
+            healthText.text = String.Format("{0}/{1}", playerHealth.Hitpoints, startHealth);
         }
     }
 

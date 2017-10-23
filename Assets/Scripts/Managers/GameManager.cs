@@ -66,7 +66,11 @@ namespace Managers {
                     ld.Spawn(destroyedGameObject.transform.position);
                 }
             }
-            
+
+            if (destroyedGameObject.tag == "Enemy") {
+                AddPoints(Points.ENEMY_DESTROYED);
+            }
+
             if (destroyedGameObject.tag == "HealthPickup") {
                 GameObject healthAnimation = Instantiate(healthPickupPrefab, destroyedGameObject.transform.position, Quaternion.identity) as GameObject;
                 Destroy(healthAnimation, 3);
@@ -86,14 +90,17 @@ namespace Managers {
         public void setState(State state)
         {
             print("GameManager::setState -> " + state);
-            
+
             State oldState = this.state;
             this.state = state;
-            
-            this.HandleStateChange(oldState);
-            MessageKit<State>.post(MessageTypes.gameStateChanged, oldState);
-        }
 
+            this.HandleStateChange(oldState);
+
+            if (this.state != State.quit) {
+                MessageKit<State>.post(MessageTypes.gameStateChanged, oldState);
+            }
+        }
+    
         private void HandleStateChange(State oldState)
         {            
             if (this.state != State.playing) {
@@ -112,10 +119,15 @@ namespace Managers {
                         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                         break;
 
-            }
+                }
             } else {
                 Time.timeScale = 1;
             }
+        }
+
+        private void OnDestroy()
+        {
+            MessageKit.clearMessageTable();
         }
     }
 

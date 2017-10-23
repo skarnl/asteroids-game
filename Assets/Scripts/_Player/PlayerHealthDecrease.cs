@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using UnityEditor;
 using UnityEngine;
-using Managers;
 
 public class PlayerHealthDecrease : MonoBehaviour {
 
@@ -26,8 +24,10 @@ public class PlayerHealthDecrease : MonoBehaviour {
     IEnumerator StartHealthDegrees() {
         yield return new WaitUntil(() => frame >= waitDelayInFrames);
 
-        if (playersHealth.Hitpoints > 0) {
-            playersHealth.Hitpoints = playersHealth.Hitpoints - dropPerFrame;
+        if (Time.timeScale > 0) {
+            if (playersHealth.Hitpoints > 0) {
+                playersHealth.Hitpoints = playersHealth.Hitpoints - dropPerFrame;
+            }
         }
 
         //reset the frame and restart the Coroutine
