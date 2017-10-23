@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using Prime31.MessageKit;
+using UnityEngine.SceneManagement;
+using Variables;
 
 namespace Managers {
 
@@ -17,9 +19,16 @@ namespace Managers {
         public GameObject healthPickupPrefab;
         public GameObject smokePrefab;
         
+        private State state = State.start;
+        
         void Awake ()
         {
             RegisterForMessages();
+        }
+
+        void Start()
+        {
+            this.setState(State.start);
         }
 
         private void RegisterForMessages()
@@ -29,8 +38,17 @@ namespace Managers {
 
         void Update()
         {
-            if (Input.GetKey(KeyCode.Escape)) {
-                print("// PAUSE //");
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                if (this.state == State.playing) {
+                    this.setState(State.pause);
+                } else if (this.state == State.pause) {
+                    this.setState(State.playing);
+                } else if (this.state == State.help) {
+                    this.setState(State.pause);
+                }
+                else {
+                    print("Pressed ESC, but State not updated since we aren't playing");
+                }
             }
         }
 
@@ -58,6 +76,46 @@ namespace Managers {
         private void AddPoints(int points)
         {
             PointManager.Instance.AddPoints(points);
+        }
+
+        public State getState()
+        {
+            return this.state;
+        }
+
+        public void setState(State state)
+        {
+            print("GameManager::setState -> " + state);
+            
+            State oldState = this.state;
+            this.state = state;
+            
+            this.HandleStateChange(oldState);
+            MessageKit<State>.post(MessageTypes.gameStateChanged, oldState);
+        }
+
+        private void HandleStateChange(State oldState)
+        {            
+            if (this.state != State.playing) {
+                Time.timeScale = 0;
+
+                switch (this.state) {
+                    case State.quit:
+                        Application.Quit();
+                        break;
+
+                    case State.help:
+                        
+                        break;
+                        
+                    case State.restart:
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                        break;
+
+            }
+            } else {
+                Time.timeScale = 1;
+            }
         }
     }
 

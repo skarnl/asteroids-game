@@ -5,4 +5,6 @@ public class MessageTypes
 	public const int gameObjectDestroyed = 0;
 
     public const int playerHealthChanged = 1;
+
+	public const int gameStateChanged = 2;
 }
