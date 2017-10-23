@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using System;
-using Prime31.MessageKit;
 using UnityEngine.UI;
 
 namespace Managers {
@@ -19,7 +16,7 @@ namespace Managers {
         private Health playerHealth;
         private float originalWidth;
         private int startHealth;
-
+        
         public void Awake ()
         {
             playerHealth = GameObject.Find("Player").GetComponent<Health>();

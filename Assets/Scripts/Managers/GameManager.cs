@@ -20,10 +20,14 @@ namespace Managers {
         public GameObject smokePrefab;
         
         private State state = State.start;
+        private GameObject gameOverText;
         
         void Awake ()
         {
             RegisterForMessages();
+            
+            gameOverText = GameObject.Find("UI/GameOver");
+            gameOverText.SetActive(false);
         }
 
         void Start()
@@ -75,6 +79,10 @@ namespace Managers {
                 GameObject healthAnimation = Instantiate(healthPickupPrefab, destroyedGameObject.transform.position, Quaternion.identity) as GameObject;
                 Destroy(healthAnimation, 3);
             }
+
+            if (destroyedGameObject.tag == "Player") {
+                this.setState(State.gameOver);
+            }
         }
 
         private void AddPoints(int points)
@@ -118,6 +126,10 @@ namespace Managers {
                     case State.restart:
                         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                         break;
+                        
+                    case State.gameOver:
+                        StartCoroutine(gameOverCoroutine());
+                        break;
 
                 }
             } else {
@@ -127,7 +139,20 @@ namespace Managers {
 
         private void OnDestroy()
         {
-            MessageKit.clearMessageTable();
+            MessageKit<GameObject>.removeObserver(MessageTypes.gameObjectDestroyed, GameObjectDestroyedHandler);
+        }
+        
+        private IEnumerator gameOverCoroutine()
+        {
+            gameOverText.SetActive(true);
+
+            print("before 5 seconds");
+            
+            yield return new WaitForSecondsRealtime(5);
+
+            print("after 5 seconds");
+            
+            this.setState(State.start);
         }
     }
 

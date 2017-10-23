@@ -24,6 +24,7 @@ public class Health : MonoBehaviour {
     private void Update()
     {
 		if (hitPoints <= 0) {
+		    hitPoints = 0;
 			MessageKit<GameObject>.post(MessageTypes.gameObjectDestroyed, gameObject);
 		    Destroy(gameObject);
 		}

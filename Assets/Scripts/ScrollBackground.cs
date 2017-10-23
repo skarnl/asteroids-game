@@ -9,11 +9,6 @@ public class ScrollBackground : MonoBehaviour {
 
 	void Start () {
 		mat = GetComponent<MeshRenderer>().material;
-
-		Color c = mat.color;
-		c.a = 0.1f;
-
-		mat.color = c;
 	}
 
 	// Update is called once per frame

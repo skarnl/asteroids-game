@@ -52,21 +52,17 @@ public class MenuController : MonoBehaviour {
 		State newState = GameManager.Instance.getState();
 		print("MenuController::GameStateChangedHandler - State changed from " + oldState + " to " + newState);
 		
+		this.gameObject.SetActive(newState != State.playing && newState != State.gameOver);
+		
 		if (newState == State.playing) {
-			this.gameObject.SetActive(false);
-			
 			startButton.SetActive(false);
 			restartButton.SetActive(true);
 		} else if (newState == State.help) {
-			this.gameObject.SetActive(true);
-			
 			buttonGroup.SetActive(false);
 			helpText.SetActive(true);
 			helpBackButton.SetActive(true);
 			
 		} else if (newState == State.pause) {
-			this.gameObject.SetActive(true);
-			
 			buttonGroup.SetActive(true);
 			helpText.SetActive(false);
 			helpBackButton.SetActive(false);
@@ -74,5 +70,10 @@ public class MenuController : MonoBehaviour {
 			startButton.SetActive(false);
 			restartButton.SetActive(true);
 		}
+	}
+
+	private void OnDestroy()
+	{
+		MessageKit<State>.removeObserver(MessageTypes.gameStateChanged, GameStateChangedHandler);
 	}
 }
